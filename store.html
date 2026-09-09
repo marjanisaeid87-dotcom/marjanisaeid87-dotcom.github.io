@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>کاتالوگ قیمت پمپ‌ها | سیال قطعه‌ساز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#1e293b;
+    --primary-2:#334155;
+    --accent:#059669;
+    --accent-2:#10b981;
+    --bg:#F8FAFC;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --danger:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Vazirmatn', Tahoma, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-tap-highlight-color:transparent;
+  }
+  a{color:inherit;}
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    color:#fff;
+    padding:14px 16px;
+    box-shadow:0 4px 16px rgba(0,0,0,.12);
+  }
+  .head-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    max-width:1100px;
+    margin:0 auto 10px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    font-size:1.05rem;
+  }
+  .brand svg{width:24px;height:24px;stroke:#fff;flex-shrink:0;}
+  #logoutBtn{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.25);
+    color:#fff;
+    border-radius:10px;
+    padding:8px 12px;
+    font-family:inherit;
+    font-size:.8rem;
+    cursor:pointer;
+    min-height:38px;
+  }
+  .search-row{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+  }
+  #searchInput{
+    flex:1;
+    padding:13px 16px;
+    border-radius:12px;
+    border:none;
+    font-size:1rem;
+    font-family:inherit;
+    outline:none;
+  }
+  .meta-bar{
+    max-width:1100px;
+    margin:8px auto 0;
+    font-size:.75rem;
+    color:rgba(255,255,255,.75);
+    text-align:center;
+  }
+
+  .container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 16px 60px;
+  }
+
+  .crumbs{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .backBtn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:9px 14px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.9rem;
+    min-height:44px;
+    color:var(--text);
+  }
+  .backBtn svg{width:16px;height:16px;}
+  .crumb-title{
+    font-weight:700;
+    font-size:1.15rem;
+  }
+  .crumb-count{
+    color:var(--muted);
+    font-size:.85rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:16px;
+  }
+  .grid.products{
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  }
+
+  .type-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    cursor:pointer;
+    text-align:center;
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .type-card:hover, .type-card:focus-visible{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    outline:none;
+  }
+  .type-card img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    background:var(--border);
+  }
+  .type-card .tbody{
+    padding:12px 10px 16px;
+  }
+  .type-card h3{
+    margin:0 0 4px;
+    font-size:1rem;
+  }
+  .type-card .count{
+    font-size:.78rem;
+    color:var(--muted);
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    scroll-margin-top:150px;
+    transition:box-shadow .2s ease;
+  }
+  .card.highlight{
+    box-shadow:0 0 0 3px var(--accent);
+  }
+  .card img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    background:var(--border);
+  }
+  .card-body{
+    padding:14px 16px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+  .code-badge{
+    display:inline-block;
+    background:#eef4ff;
+    color:var(--primary-2);
+    font-size:.72rem;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:999px;
+    width:fit-content;
+  }
+  .card h4{
+    margin:0;
+    font-size:1rem;
+  }
+  .specs{
+    margin:0;
+    padding:0;
+    list-style:none;
+    color:var(--muted);
+    font-size:.82rem;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .specs li:before{
+    content:"• ";
+    color:var(--accent);
+  }
+  .price-row{
+    margin-top:auto;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    background:#f0fdf7;
+    border-radius:10px;
+    padding:10px 12px;
+    gap:8px;
+  }
+  .price{
+    font-weight:800;
+    font-size:1.05rem;
+    color:var(--accent);
+  }
+  .updated{
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .copyBtn{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:8px;
+    width:38px;
+    height:38px;
+    min-width:44px;
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .copyBtn svg{width:16px;height:16px;color:var(--muted);}
+  .copyBtn.copied svg{color:var(--accent);}
+
+  .toolbar{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .printBtn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:9px 14px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.85rem;
+    min-height:44px;
+  }
+  .printBtn svg{width:15px;height:15px;}
+
+  .state{
+    text-align:center;
+    color:var(--muted);
+    padding:60px 10px;
+  }
+  .spinner{
+    width:34px;height:34px;
+    border:3px solid var(--border);
+    border-top-color:var(--accent);
+    border-radius:50%;
+    margin:0 auto 12px;
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:.78rem;
+    padding:10px 10px 40px;
+  }
+
+  [hidden]{display:none !important;}
+
+  @media print{
+    header, .toolbar, .backBtn, .copyBtn, footer, #searchInput{display:none !important;}
+    body{background:#fff;}
+    .card{break-inside:avoid;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+      سیال قطعه‌ساز — کاتالوگ قیمت پمپ
+    </div>
+    <button id="logoutBtn">خروج</button>
+  </div>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="جستجوی کد یا نام پمپ... مثلاً 215-7">
+  </div>
+  <div class="meta-bar" id="metaBar"></div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <button class="printBtn" id="printBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      چاپ / PDF
+    </button>
+  </div>
+
+  <div id="loadingState" class="state">
+    <div class="spinner"></div>
+    در حال بارگذاری اطلاعات...
+  </div>
+
+  <div id="errorState" class="state" hidden>
+    خطا در دریافت اطلاعات قیمت. لطفاً اتصال اینترنت را بررسی کنید و صفحه را رفرش کنید.
+  </div>
+
+  <div id="typesView" hidden>
+    <div class="grid" id="typesGrid"></div>
+  </div>
+
+  <div id="detailView" hidden>
+    <div class="crumbs">
+      <button class="backBtn" id="backBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        بازگشت
+      </button>
+      <span class="crumb-title" id="detailTitle"></span>
+      <span class="crumb-count" id="detailCount"></span>
+    </div>
+    <div class="grid products" id="detailGrid"></div>
+  </div>
+
+  <div id="searchView" hidden>
+    <div class="crumbs">
+      <span class="crumb-title">نتایج جستجو</span>
+      <span class="crumb-count" id="searchCount"></span>
+    </div>
+    <div class="grid products" id="searchGrid"></div>
+  </div>
+</div>
+
+<footer>طراحی و توسعه: سعید مرجانی</footer>
+
+<script>
+  /* =========================================================
+     تنظیمات منبع داده
+     اگر لینک گوگل‌شیت منتشرشده (Publish to web -> CSV) را اینجا
+     بگذارید، قیمت‌ها از آنجا خوانده می‌شود. اگر خالی بماند یا
+     خطا بدهد، از فایل data.json (نمونه) استفاده می‌شود.
+  ========================================================= */
+  const SHEET_CSV_URL = ""; // مثال: "https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
+  const FALLBACK_JSON = "data.json";
+
+  // ---- auth gate ----
+  if (!localStorage.getItem('role')) {
+    window.location.replace('index.html');
+  }
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('role');
+    window.location.href = 'index.html';
+  });
+
+  // ---- CSV parsing (handles quoted fields with commas) ----
+  function parseCSV(text){
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++){
+      const c = text[i];
+      if (inQuotes){
+        if (c === '"'){
+          if (text[i+1] === '"'){ field += '"'; i++; }
+          else inQuotes = false;
+        } else field += c;
+      } else {
+        if (c === '"') inQuotes = true;
+        else if (c === ',') { row.push(field); field=''; }
+        else if (c === '\r'){ /* skip */ }
+        else if (c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+        else field += c;
+      }
+    }
+    if (field.length || row.length){ row.push(field); rows.push(row); }
+    return rows.filter(r => r.some(v => v.trim() !== ''));
+  }
+
+  function csvToItems(text){
+    const rows = parseCSV(text);
+    if (!rows.length) return [];
+    const headers = rows[0].map(h => h.trim().toLowerCase());
+    return rows.slice(1).map(r => {
+      const o = {};
+      headers.forEach((h, idx) => o[h] = (r[idx] || '').trim());
+      return normalizeItem(o);
+    });
+  }
+
+  function normalizeItem(o){
+    const priceNum = parseInt(String(o.price || '0').replace(/[^0-9]/g,''), 10) || 0;
+    let img = String(o.image || '').trim();
+    if (img && !/^https?:\/\//i.test(img) && !img.startsWith('images/')) img = 'images/' + img;
+    const specs = Array.isArray(o.specs)
+      ? o.specs.map(s => String(s).trim()).filter(Boolean)
+      : String(o.specs || '').split('|').map(s => s.trim()).filter(Boolean);
+    return {
+      type: String(o.type || '').trim(),
+      code: String(o.code || '').trim(),
+      name: String(o.name || '').trim() || String(o.code || ''),
+      image: img,
+      specs: specs,
+      price: priceNum,
+      updated: String(o.updated || '').trim()
+    };
+  }
+
+  // ---- state ----
+  let ALL_ITEMS = [];
+  let TYPES = []; // [{type, cover, items:[...]}]
+
+  function buildTypes(items){
+    const map = new Map();
+    items.forEach(it => {
+      if (!map.has(it.type)) map.set(it.type, []);
+      map.get(it.type).push(it);
+    });
+    return Array.from(map.entries()).map(([type, items]) => ({
+      type,
+      cover: (items.find(i => i.image) || {}).image || '',
+      items: items.sort((a,b) => a.code.localeCompare(b.code, 'fa', {numeric:true}))
+    })).sort((a,b) => a.type.localeCompare(b.type, 'fa', {numeric:true}));
+  }
+
+  function fmtPrice(n){
+    return n.toLocaleString('en-US') + ' تومان';
+  }
+
+  function placeholderImg(){
+    return "https://placehold.co/400x300?text=%D8%B9%DA%A9%D8%B3+%D9%86%D8%AF%D8%A7%D8%B1%D8%AF";
+  }
+
+  function productCardHTML(it){
+    const specsHtml = it.specs.map(s => `<li>${s}</li>`).join('');
+    return `
+      <div class="card" id="prod-${it.code}" data-code="${it.code}">
+        <img src="${it.image}" alt="${it.name}" loading="lazy" onerror="this.src='${placeholderImg()}'">
+        <div class="card-body">
+          <span class="code-badge">${it.code}</span>
+          <h4>${it.name}</h4>
+          <ul class="specs">${specsHtml}</ul>
+          <div class="price-row">
+            <div>
+              <div class="price">${fmtPrice(it.price)}</div>
+              <div class="updated">بروزرسانی: ${it.updated || '-'}</div>
+            </div>
+            <button class="copyBtn" title="کپی لینک" data-code="${it.code}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function attachCopyHandlers(root){
+    root.querySelectorAll('.copyBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.dataset.code;
+        const url = location.origin + location.pathname + '#p=' + encodeURIComponent(code);
+        navigator.clipboard.writeText(url).then(() => {
+          btn.classList.add('copied');
+          setTimeout(() => btn.classList.remove('copied'), 1200);
+        }).catch(() => {});
+      });
+    });
+  }
+
+  // ---- views ----
+  const loadingState = document.getElementById('loadingState');
+  const errorState = document.getElementById('errorState');
+  const typesView = document.getElementById('typesView');
+  const detailView = document.getElementById('detailView');
+  const searchView = document.getElementById('searchView');
+
+  function showOnly(view){
+    [typesView, detailView, searchView].forEach(v => v.hidden = (v !== view));
+  }
+
+  function renderTypes(){
+    const grid = document.getElementById('typesGrid');
+    grid.innerHTML = TYPES.map(t => `
+      <div class="type-card" tabindex="0" role="button" data-type="${t.type}">
+        <img src="${t.cover || placeholderImg()}" alt="تیپ ${t.type}" loading="lazy" onerror="this.src='${placeholderImg()}'">
+        <div class="tbody">
+          <h3>تیپ ${t.type}</h3>
+          <div class="count">${t.items.length} کد</div>
+        </div>
+      </div>
+    `).join('');
+    grid.querySelectorAll('.type-card').forEach(card => {
+      const open = () => { location.hash = 'type=' + encodeURIComponent(card.dataset.type); };
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+    });
+    showOnly(typesView);
+  }
+
+  function renderDetail(typeName){
+    const t = TYPES.find(x => x.type === typeName);
+    if (!t){ renderTypes(); return; }
+    document.getElementById('detailTitle').textContent = 'تیپ ' + t.type;
+    document.getElementById('detailCount').textContent = t.items.length + ' کد';
+    const grid = document.getElementById('detailGrid');
+    grid.innerHTML = t.items.map(productCardHTML).join('');
+    attachCopyHandlers(grid);
+    showOnly(detailView);
+  }
+
+  function renderSearch(query){
+    const q = query.trim().toLowerCase();
+    const results = ALL_ITEMS.filter(it =>
+      it.code.toLowerCase().includes(q) || it.name.toLowerCase().includes(q) || it.type.toLowerCase().includes(q)
+    );
+    document.getElementById('searchCount').textContent = results.length + ' نتیجه';
+    const grid = document.getElementById('searchGrid');
+    grid.innerHTML = results.length
+      ? results.map(productCardHTML).join('')
+      : '<p style="color:var(--muted)">چیزی پیدا نشد.</p>';
+    attachCopyHandlers(grid);
+    showOnly(searchView);
+  }
+
+  function route(){
+    const q = document.getElementById('searchInput').value.trim();
+    if (q){ renderSearch(q); return; }
+    const hash = location.hash.replace('#','');
+    const params = new URLSearchParams(hash);
+    if (params.has('type')){
+      renderDetail(params.get('type'));
+    } else if (params.has('p')){
+      const code = params.get('p');
+      const it = ALL_ITEMS.find(i => i.code === code);
+      if (it){
+        renderDetail(it.type);
+        setTimeout(() => {
+          const el = document.getElementById('prod-' + it.code);
+          if (el){
+            el.scrollIntoView({behavior:'smooth', block:'center'});
+            el.classList.add('highlight');
+            setTimeout(() => el.classList.remove('highlight'), 2000);
+          }
+        }, 50);
+      } else {
+        renderTypes();
+      }
+    } else {
+      renderTypes();
+    }
+  }
+
+  document.getElementById('backBtn').addEventListener('click', () => {
+    location.hash = '';
+  });
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+  document.getElementById('searchInput').addEventListener('input', route);
+  window.addEventListener('hashchange', route);
+
+  function setMeta(){
+    if (!ALL_ITEMS.length) return;
+    const dates = ALL_ITEMS.map(i => i.updated).filter(Boolean);
+    const latest = dates.sort().slice(-1)[0];
+    document.getElementById('metaBar').textContent = latest
+      ? ('آخرین بروزرسانی قیمت‌ها: ' + latest + ' · ' + ALL_ITEMS.length + ' کد در ' + TYPES.length + ' تیپ')
+      : (ALL_ITEMS.length + ' کد در ' + TYPES.length + ' تیپ');
+  }
+
+  function onDataReady(items){
+    ALL_ITEMS = items;
+    TYPES = buildTypes(items);
+    setMeta();
+    loadingState.hidden = true;
+    route();
+  }
+
+  function loadData(){
+    const tryFallback = () => {
+      fetch(FALLBACK_JSON + '?_=' + Date.now())
+        .then(r => { if(!r.ok) throw new Error('no fallback'); return r.json(); })
+        .then(data => onDataReady(data.map(normalizeItem)))
+        .catch(() => {
+          loadingState.hidden = true;
+          errorState.hidden = false;
+        });
+    };
+
+    if (SHEET_CSV_URL){
+      fetch(SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now())
+        .then(r => { if(!r.ok) throw new Error('sheet fetch failed'); return r.text(); })
+        .then(text => onDataReady(csvToItems(text)))
+        .catch(tryFallback);
+    } else {
+      tryFallback();
+    }
+  }
+
+  loadData();
+</script>
+
+</body>
+</html>
